@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated manuscript once published."
+title: "ECG Explanation-Faithfulness Benchmark (PTB-XL)"
+authors:
+  - family-names: "Al Naffakh"
+    given-names: "Hussein Ali Hussein"
+  - family-names: "Ghazali"
+    given-names: "Rozaida"
+  - family-names: "Khattak"
+    given-names: "Umar Farooq"
+version: "1.0.0"
+date-released: "2026-06-29"
+license: MIT
+notes: "Manuscript under peer review; full citation to be added upon acceptance."
