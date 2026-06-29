@@ -1,56 +1,58 @@
-# ECG Explanation-Faithfulness Benchmark (PTB-XL)
+# ecg-xai-eval
 
-A reproducible benchmark that separates **explainer faithfulness** from **clinical
-validity** for deep ECG diagnosis on the public PTB-XL dataset. Six attribution
-methods (Saliency, Grad×Input, DeepLIFT, Integrated Gradients, Grad-CAM, DeepSHAP)
-and a random baseline are scored along three orthogonal axes plus a calibrated
-shortcut-injection ground-truth test.
+Evaluation code for assessing attribution methods on a 12-lead ECG classifier
+trained on a public dataset. The pipeline scores several gradient- and
+perturbation-based attribution methods on three independent criteria and a
+controlled sanity test, then aggregates across multiple random seeds.
 
-> **Status: unpublished manuscript under peer review.**
-> This repository contains code and reproduction scripts only. It does **not**
-> contain the manuscript text, abstract, or figures-as-published. Please do not
-> redistribute or index the contents as a publication. A citation will be added
-> here once the article is accepted.
+> **Note.** This repository accompanies a research project that is **not yet
+> published**. It is provided for reproducibility of the computational pipeline
+> only. It deliberately contains **no manuscript text, abstract, figures, or
+> results narrative**. Please do not index or cite this repository as a
+> publication; a formal reference will be added after the associated article
+> appears.
 
-## What this repo reproduces
-- 10-seed ResNet1D baseline on PTB-XL (test macro-AUROC ≈ 0.9262 ± 0.0009).
-- Axis A (faithfulness, leakage-controlled ROAD/ABPC), Axis B (clinical validity,
-  lead-aware regions), Axis C (randomization sensitivity), for 6 methods × 5
-  superclasses × 10 seeds.
-- Calibrated shortcut-injection detection for all 6 methods.
-- Nested mixed model on per-record ABPC.
-- All publication figures.
+## Scope
 
-## Layout
+The code lets a user:
+
+- rebuild the input tensors from the raw signal release and train the classifier
+  across a fixed set of random seeds (deterministic, resumable);
+- score attribution maps on three criteria — a removal-based criterion, a
+  region-overlap criterion, and a model-randomization criterion;
+- run a controlled artefact-insertion sanity test that checks whether a method
+  localizes a planted signal;
+- fit a per-record mixed-effects model and regenerate all plots.
+
+## Repository layout
+
 ```
-src/01_rebuild_and_train.py                 # rebuild X/Y from raw PTB-XL + train 10 seeds (resumable)
-src/02_confirmatory_axes_injection_glmm.py  # axes A/B/C + injection + mixed model (uses saved models)
-src/03_make_figures.py                      # regenerate all figures into figures/
-docs/pre_registration.md                    # pre-registered hypotheses H1–H4
-docs/DATA.md                                # how to obtain PTB-XL (not redistributed here)
-docs/REPRODUCE.md                           # step-by-step
-models/WEIGHTS.md                           # how to obtain/regenerate the 10 trained weights
-results/results_summary.md                  # numeric results (values only)
+src/        pipeline stages (train, evaluate, plot)
+docs/        environment and data-access notes; analysis plan
+models/      instructions for obtaining or regenerating the trained weights
+results/     machine-readable run outputs
+figures/     generated plots
 ```
 
-## Quick start
+## Usage
+
 ```bash
 pip install -r requirements.txt
-# 1) rebuild data + train (needs raw PTB-XL, see docs/DATA.md); resumable, saves each seed
-python src/01_rebuild_and_train.py
-# 2) compute all axes + injection + mixed model from the saved models
-python src/02_confirmatory_axes_injection_glmm.py
-# 3) regenerate figures
-python src/03_make_figures.py
+python src/01_rebuild_and_train.py                 # data + training (see docs for the data source)
+python src/02_confirmatory_axes_injection_glmm.py  # all evaluation criteria + sanity test
+python src/03_make_figures.py                      # plots
 ```
-Paths default to a Kaggle layout (`/kaggle/working`, `/kaggle/input/...`). Edit the
-`WORK` and dataset paths at the top of each script for a local run.
 
-## Reproducibility
-Training is seed-deterministic (seeds `[42,1,7,2,3,4,5,6,8,9]`); the data rebuild is
-deterministic from the raw release. Re-running `01` reproduces the same weights and
-the same AUROC to within reported tolerance.
+Paths default to a hosted-notebook layout; edit the working and dataset paths at
+the top of each script to run locally. Training is seed-deterministic, so a fresh
+run reproduces the same weights and scores within tolerance.
+
+## Data
+
+The signal dataset is **not redistributed here** and must be obtained from its
+official source under its own license (see `docs/DATA.md`).
 
 ## License
-Code is released under the MIT License (see `LICENSE`). PTB-XL is **not** included
-and is governed by its own license (PhysioNet, see `docs/DATA.md`).
+
+Code is released under the MIT License (see `LICENSE`). The dataset retains its
+original license.
