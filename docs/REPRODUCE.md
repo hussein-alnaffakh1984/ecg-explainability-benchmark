@@ -13,7 +13,8 @@ working paths at the top of each script for a local run. Every heavy script is r
 4. **Shortcut injection, Grad-CAM variants, control maps, ROAD curves, runtime:**
    `python src/05_injection_gradcam_controls.py` → `part2/`.
 5. **Transformer:** `python src/06_transformer.py` → `part3/`.
-6. **Statistics:** `python src/07_statistics.py` (CPU) → `statistics.json`.
+6. **Statistics:** `python src/07_statistics.py` (CPU; set `WORK` to the folder holding `ext_seeds/`) → `statistics.json`.
+   **Imputer leakage ablation:** `python src/10_imputer_leakage.py` (CPU) → leakage table.
 7. **Collect and plot:** copy the outputs of steps 3-5 into `results/raw/resnet_axes/`,
    `results/raw/injection_controls/` and `results/raw/transformer/`, then run
    `python src/08_collect_results.py` and `python src/09_make_figures.py`.

@@ -1,21 +1,14 @@
 # =====================================================================================
-# RECOVERY RUN  —  session was wiped (no models, no X/Y). Rebuild everything from raw PTB-XL.
-# Raw dataset confirmed at: /kaggle/input/datasets/khyeh0719/ptb-xl-dataset/.../1.0.1
-# STEP 1 (fast)  : rebuild X.npy, Y.npy, split_index.csv  (deterministic, from raw)
-# STEP 2 (heavy) : train 10 seeds -> models/resnet1d_seed*.pt  (RESUMABLE, saves each seed)
-# Both cells are VERBATIM from the verified notebook (ecgecgecg.ipynb cells 78 & 85).
-#
-# >>> CRITICAL: press SAVE VERSION after STEP 1, and again after EVERY seed in STEP 2. <<<
-# >>> To make files permanent: after this finishes, also add /kaggle/working as output    <<<
-# >>> of a Saved Version, or export models/ + X.npy + Y.npy as a private Kaggle Dataset.   <<<
-# After this completes, run kaggle_confirmatory_run.py (axes + injection + GLMM).
+# Step 1: rebuild X.npy, Y.npy and split_index.csv from raw PTB-XL (v1.0.1, 100 Hz).
+# Step 2: train ResNet1D for seeds [42, 1, 7, 2, 3, 4, 5, 6, 8, 9] (resumable; each seed is saved).
+# Set DATA_DIR and WORK below for a local run.
 # =====================================================================================
-!pip -q install wfdb tqdm >/dev/null 2>&1
+# Requirements: see requirements.txt
 
 
 
 # =====================================================================================
-# STEP 1 — rebuild data from raw PTB-XL (verbatim cell 78)
+# STEP 1 — rebuild data from raw PTB-XL 
 # =====================================================================================
 # ============ REBUILD STEP 1+2: metadata + signals (ORIGINAL logic, from mounted source) ============
 import os, ast, json, numpy as np, pandas as pd, wfdb
@@ -77,7 +70,7 @@ for sp in ["train","val","test"]:
 print("\n✓ data rebuilt. Saved X.npy, Y.npy, split_index.csv, norm_stats.npz, ptbxl_meta_processed.csv")
 
 # =====================================================================================
-# STEP 2 — train 10 seeds, resumable (verbatim cell 85)
+# STEP 2 — train 10 seeds, resumable 
 # =====================================================================================
 # ============ STEP 3 (10 seeds): ResNet1D backbone — resumable, CPU-friendly ============
 import os, json, numpy as np, torch, torch.nn as nn, pandas as pd, random
@@ -166,7 +159,7 @@ for SEED in SEEDS:
          "test_macro_F1":round(te_f1,4),"per_class_AUROC":per}
     json.dump(met,open(mp,"w"),indent=2); summary[SEED]=met
     print(f"  ✓ seed {SEED}: TEST macro-AUROC={te_auc:.4f}  (saved)")
-    print(f"  >>> SAVE VERSION NOW before continuing <<<")
+    pass
 
 aucs=[summary[s]["test_macro_AUROC"] for s in SEEDS if s in summary]
 print(f"\n=== {len(aucs)}/10 seeds done ===")

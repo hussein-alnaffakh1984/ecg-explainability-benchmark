@@ -19,18 +19,20 @@ Grad-CAM) are scored on two architectures (ResNet1D, ten seeds; Transformer enco
 ```
 src/                       pipeline scripts (run in numerical order)
   01_rebuild_and_train.py           data tensors from raw PTB-XL + ResNet1D training (10 seeds)
-  02_confirmatory_axes_injection_glmm.py   first confirmatory pipeline
-  03_make_figures.py                first-round figures
+  02_confirmatory_axes_injection_glmm.py   first-round pipeline (superseded by 04-09, kept for transparency)
+  03_make_figures.py                first-round figures (written to figures/first_round/)
   04_axes_resnet_10seeds.py         Axes A, B, C for ResNet1D (10 seeds)
   05_injection_gradcam_controls.py  shortcut injection, Grad-CAM variants, control maps, ROAD curves, runtime
   06_transformer.py                 Transformer training + Axes A-C + shortcut injection
   07_statistics.py                  seed-level CIs, bootstrap, mixed model, Holm, TOST, Axis C summaries
   08_collect_results.py             builds results/master_results.json from results/raw/
   09_make_figures.py                Figures 1-8 (600 dpi) from results/
+  10_imputer_leakage.py             reconstruction-leakage ablation of the ROAD imputer
 docs/                      data access, reproduction steps, analysis plan
 models/                    weight instructions; Transformer weights (transformer_weights.zip)
 results/master_results.json  every number reported in the manuscript
 results/statistics.json      output of 07_statistics.py
+results/imputer_leakage.json output of 10_imputer_leakage.py
 results/raw/                 per-seed and per-setting outputs of scripts 04-06
 figures/                     Figures 1-8
 ```

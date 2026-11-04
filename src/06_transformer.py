@@ -26,7 +26,7 @@ WORK="/kaggle/working"; OUT=f"{WORK}/part3"; os.makedirs(f"{OUT}/models",exist_o
 CLASSES=["NORM","MI","STTC","CD","HYP"]; MI=1
 LEADS=["I","II","III","aVR","aVL","aVF","V1","V2","V3","V4","V5","V6"]; SR=100; T=1000
 
-# ---------------- ORIGINAL Transformer (verbatim from notebook STEP 4) ----------------
+# ---------------- Transformer encoder (same architecture as the first-round analysis) ----------------
 class ConvStem(nn.Module):
     def __init__(s, ci=12, d=128):
         super().__init__()
@@ -68,7 +68,7 @@ def predict(m,Xa,bs=256):
     for i in range(0,len(Xa),bs): P.append(torch.sigmoid(m(torch.from_numpy(Xa[i:i+bs]).to(dev))).cpu().numpy())
     return np.concatenate(P)
 
-# ---------------- train (verbatim loop: AdamW 1e-3, wd 1e-4, plateau sched, early stop on val AUROC) ----------------
+# ---------------- train (AdamW 1e-3, wd 1e-4, plateau sched, early stop on val AUROC) ----------------
 def train_transformer(seed, Xa, Ya, early_stop=True, epochs=MAXEP):
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)
     m=ECGTransformer().to(dev); pos=Ya.sum(0)

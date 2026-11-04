@@ -7,7 +7,7 @@
 import os, json, glob, numpy as np
 from scipy import stats
 
-WORK = "/kaggle/working"
+WORK = os.environ.get("WORK", "/kaggle/working")
 CLASSES = ["NORM","MI","STTC","CD","HYP"]
 POWERED = ["NORM","HYP","STTC"]              # classes where the removal metric has power
 FAMILY  = ["DeepSHAP","IG","DeepLIFT","GradXInput"]
@@ -81,7 +81,7 @@ for meth in ["IG","DeepLIFT","GradXInput"]:
           f"{'EQUIVALENT' if p<0.05 else 'not equiv'}")
 
 # ---------------------------------------------------------------------------
-# seed-level CIs (the honest, non-pseudoreplicated interval)
+# seed-level CIs (non-pseudoreplicated interval)
 # ---------------------------------------------------------------------------
 print("\n"+"="*78); print("SEED-LEVEL 95% CIs (n=10 seeds; the non-pseudoreplicated interval)"); print("="*78)
 OUT["seed_level_ci"]={}
@@ -221,6 +221,6 @@ print(f"  A vs C: rho={rAC.correlation:+.3f} (p={rAC.pvalue:.3f})")
 print(f"  B vs C: rho={rBC.correlation:+.3f} (p={rBC.pvalue:.3f})")
 print("  -> low |rho| supports 'complementary' axes; high |rho| would mean redundancy. Report as measured.")
 
-json.dump(OUT, open(f"{WORK}/revision_light_stats.json","w"), indent=2)
+json.dump(OUT, open(f"{WORK}/statistics.json","w"), indent=2)
 print("\n================ LIGHT STATS DONE ================")
-print("saved revision_light_stats.json — paste the whole printout back.")
+print("saved statistics.json.")

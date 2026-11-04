@@ -1,11 +1,15 @@
-import os as _os; _os.makedirs("figures", exist_ok=True)
+# =====================================================================================
+# First-round figures, retained for transparency; written to figures/first_round/.
+# The figures of the revised manuscript are produced by 09_make_figures.py.
+# =====================================================================================
+import os as _os; _os.makedirs("figures/first_round", exist_ok=True)
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt, numpy as np
 plt.rcParams.update({"font.family":"DejaVu Sans","savefig.dpi":220,"savefig.bbox":"tight",
  "axes.spines.top":False,"axes.spines.right":False,"axes.grid":True,"grid.alpha":0.25,
  "font.size":16,"axes.titlesize":18,"axes.titleweight":"bold","axes.labelsize":16,
  "xtick.labelsize":15,"ytick.labelsize":15,"legend.fontsize":14,"axes.linewidth":1.2})
-W="figures"
+W="figures/first_round"
 # real 10-seed Axis A means (vs random) per class
 CL=["NORM","STTC","HYP","MI","CD"]   # order: strong -> weak/inverted
 fam={"NORM":0.295,"STTC":0.049,"HYP":0.254,"MI":0.032,"CD":-0.016}   # DeepSHAP repr
@@ -14,7 +18,7 @@ famhi={"NORM":0.306,"STTC":0.063,"HYP":0.288,"MI":0.065,"CD":-0.002}
 sal={"NORM":0.030,"STTC":-0.011,"HYP":0.207,"MI":0.012,"CD":0.026}
 gc ={"NORM":0.054,"STTC":0.004,"HYP":0.019,"MI":0.011,"CD":0.005}
 
-# ---------- FIG 2: honest per-class grouped bars (DeepSHAP vs Saliency vs Grad-CAM), 10 seeds ----------
+# ---------- FIG 2: per-class grouped bars (DeepSHAP vs Saliency vs Grad-CAM), 10 seeds ----------
 x=np.arange(len(CL)); w=0.26
 fig,ax=plt.subplots(figsize=(9.6,5.6))
 e=np.array([[fam[c]-famlo[c] for c in CL],[famhi[c]-fam[c] for c in CL]])
@@ -68,7 +72,7 @@ plt.rcParams.update({"font.family":"DejaVu Sans","savefig.dpi":220,"savefig.bbox
  "axes.spines.top":False,"axes.spines.right":False,"axes.grid":True,"grid.alpha":0.25,
  "font.size":16,"axes.titlesize":18,"axes.titleweight":"bold","axes.labelsize":16,
  "xtick.labelsize":15,"ytick.labelsize":15,"legend.fontsize":14,"axes.linewidth":1.2})
-W="figures"; C={"Saliency":"#3D6FB4","DeepSHAP":"#1B5E20","Grad-CAM":"#B23A3A"}
+W="figures/first_round"; C={"Saliency":"#3D6FB4","DeepSHAP":"#1B5E20","Grad-CAM":"#B23A3A"}
 
 # FIG 4: MI profile — X = Table 3 pooled MI faithfulness, Y = Table 4 MI clinical validity (vs random)
 A={"DeepSHAP":0.032,"Saliency":0.012,"Grad-CAM":0.011}
@@ -121,7 +125,7 @@ plt.rcParams.update({"font.family":"DejaVu Sans","savefig.dpi":220,"savefig.bbox
  "axes.spines.top":False,"axes.spines.right":False,"axes.grid":True,"grid.alpha":0.25,
  "font.size":16,"axes.titlesize":18,"axes.titleweight":"bold","axes.labelsize":16,
  "xtick.labelsize":15,"ytick.labelsize":15,"legend.fontsize":14,"axes.linewidth":1.2})
-W="figures"
+W="figures/first_round"
 
 # ---------- FIG 3: ROAD on NORM, raise ylim so DeepSHAP LeRF peak is NOT cut ----------
 steps=np.linspace(0,50,11)

@@ -1,19 +1,9 @@
 # =====================================================================================
-# ONE COMPREHENSIVE KAGGLE CELL  —  Paper 1 (ECG explanation benchmark) confirmatory run
-# Covers reviewer items 1+2+3 in a SINGLE run, using the 10 SAVED models (NO retraining):
-#   PART A : 4 verified pipeline functions (VERBATIM from notebook cell, gap=15 imputer)
-#   PART B : 5-class x 6-method x 10-seed axes A/B/C   -> full Table 3 + Table 6 (10 seeds)
-#   PART C : shortcut-injection detection, ALL 6 methods (adds DeepLIFT/GradXInput -> Table 8)
-#   PART D : aggregate 10-seed -> tables with mean + 95% CI
-#   PART E : NESTED MIXED MODEL (NEW code; the notebook never had a GLMM)  [see honesty note]
-#
-# PREREQUISITES (must already exist in /kaggle/working, restore from Drive cache if wiped):
-#   models/resnet1d_seed{42,1,7,2,3,4,5,6,8,9}.pt   X.npy   Y.npy   split_index.csv
-# Resumable: PART B skips seeds whose seed_*.json already exists.
-# After it finishes: press SAVE VERSION (Kaggle wipes /kaggle/working between sessions).
-# Standing rule honored: PARTS A/B/C are verbatim from the verified notebook; only PART E is new.
+# First-round confirmatory pipeline, retained for transparency.
+# The analyses reported in the revised manuscript are produced by scripts 04-09, which supersede
+# this script (held-out calibration, extended controls, seed-level statistics).
 # =====================================================================================
-!pip -q install captum neurokit2 statsmodels >/dev/null 2>&1
+# Requirements: see requirements.txt
 import os, gc, torch
 os.makedirs("/kaggle/working/models", exist_ok=True)
 print("CUDA:", torch.cuda.is_available(), "| seeds to run: [42,1,7,2,3,4,5,6,8,9]\n")
@@ -35,7 +25,7 @@ print(f"preflight OK: {len(_need_seeds)} models + data present.\n")
 
 
 # =====================================================================================
-# PART A — verified pipeline functions (verbatim)
+# PART A — pipeline functions
 # =====================================================================================
 # ============ WIRING: 4 pipeline functions with ORIGINAL gap=15 imputer + MI verify ============
 import numpy as np, torch, torch.nn as nn, copy, neurokit2 as nk, warnings, pandas as pd, gc
@@ -180,7 +170,7 @@ print("\u2713 4 pipeline functions ready (gap=15 imputer, 6 methods + Random)\n"
 
 
 # =====================================================================================
-# PART B — 10-seed x 6-method x 5-class axes (verbatim loop, SEEDS->10)
+# PART B — 10-seed x 6-method x 5-class axes (10 seeds)
 # =====================================================================================
 # ============ PART B: 5-class x 6-method x 10-seed axes (from SAVED models; resumable) ============
 import os, json, numpy as np, pandas as pd, torch, copy, gc
@@ -280,7 +270,7 @@ for sd in SEEDS:
 print("✓ extension pass-1 done — run the summary cell next.")
 
 # =====================================================================================
-# PART C — shortcut injection, all 6 methods (verbatim + DeepLIFT/GradXInput)
+# PART C — shortcut injection, all 6 methods 
 # =====================================================================================
 # ============ PART C: shortcut-injection detection, ALL 6 methods (adds DeepLIFT/GradXInput) ============
 import os, json, numpy as np, torch, torch.nn as nn, pandas as pd, gc
@@ -385,7 +375,7 @@ json.dump({"tau_audit":float(tau),"separation_auc":float(auc),"detection":det},
 print("\n✓ saved step24_calibration.json")
 
 # =====================================================================================
-# PARTS D & E — aggregation + nested mixed model (D verbatim-style; E NEW)
+# PARTS D & E — aggregation + nested mixed model 
 # =====================================================================================
 # ============ PART D: aggregate 10-seed axes -> full tables (mean, 95% CI) ============
 import os, json, glob, numpy as np
@@ -449,11 +439,10 @@ json.dump({"A":A_table,"B":B_table,"C":C_table,"MI_pooled":mi_pooled,"nseed":nse
           open(f"{WORK}/axes_10seed_summary.json","w"),indent=2)
 print("\n\u2713 saved axes_10seed_summary.json")
 
-# ============ PART E: NESTED MIXED MODEL (NEW code - never existed in notebook) ============
-# Honesty note: the notebook never contained a GLMM. This is NEW analysis code.
+# ============ PART E: NESTED MIXED MODEL ============
 # Outcome ABPC can be negative -> a strict Beta GLM is inappropriate for ABPC; we fit a
 # Gaussian nested mixed model on per-record ABPC: fixed method*class, crossed random
-# intercepts for seed and class. (If the pre-registration's "Beta" referred to the bounded
+# intercepts for seed and class. (If the analysis plan's "Beta" referred to the bounded
 # Axis-B in-region fraction in [0,1], the optional Beta block below fits that.)
 print("\n=== PART E: nested mixed model (method x class; random intercepts seed, class) ===")
 try:
@@ -518,4 +507,4 @@ print("  axes_10seed_summary.json      (full tables, mean + 95% CI)")
 print("  step24_calibration.json       (injection detection, 6 methods)")
 print("  mixedmodel_abpc.txt           (nested mixed model)")
 print("  betareg_axisB.txt             (optional Beta on Axis-B)")
-print("REMEMBER: press Save Version after this completes.")
+print("Run complete.")

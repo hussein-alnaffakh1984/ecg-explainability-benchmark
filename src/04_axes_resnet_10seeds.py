@@ -202,4 +202,4 @@ for sd in SEEDS:
     print(f"  SAVED seed_{sd}.json  (seed took {time.time()-t0:.0f}s)\n", flush=True)
 
 print("================ PART 1 DONE — axes saved ================")
-print("Now SAVE VERSION, then run PART 2 (injection).")
+print("Axes complete; next: 05_injection_gradcam_controls.py")
