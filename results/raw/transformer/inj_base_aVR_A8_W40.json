@@ -1,0 +1,137 @@
+{
+  "config": {
+    "kind": "rect",
+    "t0": 40,
+    "t1": 80,
+    "amp": 8.0
+  },
+  "reliance": {
+    "auroc_spike_on_MI": 0.9993901137780373,
+    "auroc_clean": 0.543764671526288,
+    "auroc_shifted": 1.0,
+    "auroc_spike_on_all": 0.6587512495366887
+  },
+  "chance_lead": 0.0033333333333333335,
+  "calibration": {
+    "auroc": 1.0,
+    "tau_heldout": 0.11850663274526596,
+    "tau_fixed_10x_chance": 0.03333333333333333,
+    "calibration_failed": false
+  },
+  "n_cal": 120,
+  "n_eval": 200,
+  "methods": {
+    "Saliency": {
+      "frac_mean": 0.008357328362762928,
+      "x_chance": 2.5071983337402344,
+      "detect_heldout": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_10x": 0.0,
+      "detect_10x_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    },
+    "GradXInput": {
+      "frac_mean": 0.09936387836933136,
+      "x_chance": 29.809162139892578,
+      "detect_heldout": 0.315,
+      "detect_heldout_ci": [
+        0.25462218077944276,
+        0.38235084141033604
+      ],
+      "detect_10x": 0.9,
+      "detect_10x_ci": [
+        0.8505931364369145,
+        0.9343300588284289
+      ]
+    },
+    "DeepLIFT": {
+      "frac_mean": 0.09936387836933136,
+      "x_chance": 29.809162139892578,
+      "detect_heldout": 0.315,
+      "detect_heldout_ci": [
+        0.25462218077944276,
+        0.38235084141033604
+      ],
+      "detect_10x": 0.9,
+      "detect_10x_ci": [
+        0.8505931364369145,
+        0.9343300588284289
+      ]
+    },
+    "IG": {
+      "frac_mean": 0.2836584746837616,
+      "x_chance": 85.09754180908203,
+      "detect_heldout": 1.0,
+      "detect_heldout_ci": [
+        0.9811539940816792,
+        1.0
+      ],
+      "detect_10x": 1.0,
+      "detect_10x_ci": [
+        0.9811539940816792,
+        1.0
+      ]
+    },
+    "DeepSHAP": {
+      "frac_mean": 0.26501765847206116,
+      "x_chance": 79.50529479980469,
+      "detect_heldout": 0.99,
+      "detect_heldout_ci": [
+        0.9642775148038205,
+        0.9972533993962251
+      ],
+      "detect_10x": 1.0,
+      "detect_10x_ci": [
+        0.9811539940816792,
+        1.0
+      ]
+    },
+    "GradCAM_stem": {
+      "frac_mean": 0.010614080354571342,
+      "x_chance": 3.1842241287231445,
+      "detect_heldout": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_10x": 0.0,
+      "detect_10x_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    },
+    "AbsX": {
+      "frac_mean": 0.05297185108065605,
+      "x_chance": 15.891554832458496,
+      "detect_heldout": 0.005,
+      "detect_heldout_ci": [
+        0.0008831459893662051,
+        0.02777439986977148
+      ],
+      "detect_10x": 0.855,
+      "detect_10x_ci": [
+        0.7995121871510563,
+        0.897107148646936
+      ]
+    },
+    "Random": {
+      "frac_mean": 0.0033286253456026316,
+      "x_chance": 0.9985876083374023,
+      "detect_heldout": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_10x": 0.0,
+      "detect_10x_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    }
+  }
+}

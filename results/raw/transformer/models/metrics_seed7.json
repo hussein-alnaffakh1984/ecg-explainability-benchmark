@@ -1,0 +1,14 @@
+{
+  "seed": 7,
+  "val_AUROC": 0.9187,
+  "test_macro_AUROC": 0.9121,
+  "per_class_AUROC": {
+    "NORM": 0.9346,
+    "MI": 0.898,
+    "STTC": 0.9236,
+    "CD": 0.9067,
+    "HYP": 0.8975
+  },
+  "epochs_run": 14,
+  "params_M": 0.665
+}

@@ -1,0 +1,391 @@
+{
+  "config": {
+    "kind": "rect",
+    "t0": 600,
+    "t1": 640,
+    "amp": 8.0,
+    "leads": "aVR",
+    "profile": [
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "n_cal": 120,
+  "n_eval": 200,
+  "reliance": {
+    "auroc_spike_on_MI": 1.0,
+    "auroc_clean": 0.6784192378106996,
+    "auroc_shifted": 0.9999842754933564,
+    "auroc_spike_on_all": 0.6331607381532691
+  },
+  "calibration": {
+    "auroc_calibration_set": 1.0,
+    "tau_heldout": 0.14834429323673248,
+    "tau_fixed_10x_chance": 0.03333333333333333,
+    "calibration_failed": false
+  },
+  "chance": {
+    "lead_specific": 0.0033333333333333335,
+    "time_only": 0.04
+  },
+  "methods": {
+    "Saliency": {
+      "lead_frac_mean": 0.05559020861983299,
+      "lead_frac_ci": [
+        0.05355022847652435,
+        0.05792919546365738
+      ],
+      "lead_frac_x_chance": 16.67706298828125,
+      "time_frac_mean": 0.2576640844345093,
+      "time_frac_ci": [
+        0.24850167334079742,
+        0.2678438723087311
+      ],
+      "time_frac_x_chance": 6.4416022300720215,
+      "detect_heldout_tau": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_fixed10x": 0.955,
+      "detect_fixed10x_ci": [
+        0.9167024063390321,
+        0.9761477282752958
+      ],
+      "detect_timeonly_10x": 0.055,
+      "detect_timeonly_ci": [
+        0.0309850208013701,
+        0.0957879244659355
+      ]
+    },
+    "GradXInput": {
+      "lead_frac_mean": 0.4664621353149414,
+      "lead_frac_ci": [
+        0.4568421542644501,
+        0.47616931796073914
+      ],
+      "lead_frac_x_chance": 139.9386444091797,
+      "time_frac_mean": 0.5682662725448608,
+      "time_frac_ci": [
+        0.5586988925933838,
+        0.5787091255187988
+      ],
+      "time_frac_x_chance": 14.206657409667969,
+      "detect_heldout_tau": 1.0,
+      "detect_heldout_ci": [
+        0.9811539940816792,
+        1.0
+      ],
+      "detect_fixed10x": 1.0,
+      "detect_fixed10x_ci": [
+        0.9811539940816792,
+        1.0
+      ],
+      "detect_timeonly_10x": 0.995,
+      "detect_timeonly_ci": [
+        0.9722256001302287,
+        0.9991168540106339
+      ]
+    },
+    "DeepLIFT": {
+      "lead_frac_mean": 0.48285555839538574,
+      "lead_frac_ci": [
+        0.4735395908355713,
+        0.49194568395614624
+      ],
+      "lead_frac_x_chance": 144.85665893554688,
+      "time_frac_mean": 0.5824113488197327,
+      "time_frac_ci": [
+        0.5747174024581909,
+        0.5905743837356567
+      ],
+      "time_frac_x_chance": 14.560283660888672,
+      "detect_heldout_tau": 1.0,
+      "detect_heldout_ci": [
+        0.9811539940816792,
+        1.0
+      ],
+      "detect_fixed10x": 1.0,
+      "detect_fixed10x_ci": [
+        0.9811539940816792,
+        1.0
+      ],
+      "detect_timeonly_10x": 1.0,
+      "detect_timeonly_ci": [
+        0.9811539940816792,
+        1.0
+      ]
+    },
+    "IG": {
+      "lead_frac_mean": 0.4220244884490967,
+      "lead_frac_ci": [
+        0.4117070734500885,
+        0.4321689009666443
+      ],
+      "lead_frac_x_chance": 126.60734558105469,
+      "time_frac_mean": 0.5115955471992493,
+      "time_frac_ci": [
+        0.502059280872345,
+        0.5215608477592468
+      ],
+      "time_frac_x_chance": 12.789889335632324,
+      "detect_heldout_tau": 1.0,
+      "detect_heldout_ci": [
+        0.9811539940816792,
+        1.0
+      ],
+      "detect_fixed10x": 1.0,
+      "detect_fixed10x_ci": [
+        0.9811539940816792,
+        1.0
+      ],
+      "detect_timeonly_10x": 0.94,
+      "detect_timeonly_ci": [
+        0.8980673646931491,
+        0.9653481500987285
+      ]
+    },
+    "DeepSHAP": {
+      "lead_frac_mean": 0.410412073135376,
+      "lead_frac_ci": [
+        0.3989070951938629,
+        0.42214104533195496
+      ],
+      "lead_frac_x_chance": 123.12361907958984,
+      "time_frac_mean": 0.49618175625801086,
+      "time_frac_ci": [
+        0.48469409346580505,
+        0.5083181262016296
+      ],
+      "time_frac_x_chance": 12.40454387664795,
+      "detect_heldout_tau": 0.995,
+      "detect_heldout_ci": [
+        0.9722256001302287,
+        0.9991168540106339
+      ],
+      "detect_fixed10x": 1.0,
+      "detect_fixed10x_ci": [
+        0.9811539940816792,
+        1.0
+      ],
+      "detect_timeonly_10x": 0.86,
+      "detect_timeonly_ci": [
+        0.8051000619915238,
+        0.9013308137472852
+      ]
+    },
+    "GradCAM_L4": {
+      "lead_frac_mean": 0.014170440845191479,
+      "lead_frac_ci": [
+        0.014069393277168274,
+        0.014248010702431202
+      ],
+      "lead_frac_x_chance": 4.251132011413574,
+      "time_frac_mean": 0.17004530131816864,
+      "time_frac_ci": [
+        0.16883273422718048,
+        0.17097611725330353
+      ],
+      "time_frac_x_chance": 4.251132488250732,
+      "detect_heldout_tau": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_fixed10x": 0.0,
+      "detect_fixed10x_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_timeonly_10x": 0.0,
+      "detect_timeonly_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    },
+    "GradCAM_L3": {
+      "lead_frac_mean": 0.024149693548679352,
+      "lead_frac_ci": [
+        0.023982014507055283,
+        0.02433282881975174
+      ],
+      "lead_frac_x_chance": 7.244907855987549,
+      "time_frac_mean": 0.2897963225841522,
+      "time_frac_ci": [
+        0.2877841889858246,
+        0.2919939458370209
+      ],
+      "time_frac_x_chance": 7.244908332824707,
+      "detect_heldout_tau": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_fixed10x": 0.0,
+      "detect_fixed10x_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_timeonly_10x": 0.0,
+      "detect_timeonly_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    },
+    "GradCAM_L2": {
+      "lead_frac_mean": 0.019444718956947327,
+      "lead_frac_ci": [
+        0.018229490146040916,
+        0.02071322873234749
+      ],
+      "lead_frac_x_chance": 5.833415508270264,
+      "time_frac_mean": 0.23333662748336792,
+      "time_frac_ci": [
+        0.2187538743019104,
+        0.24855875968933105
+      ],
+      "time_frac_x_chance": 5.833415985107422,
+      "detect_heldout_tau": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_fixed10x": 0.065,
+      "detect_fixed10x_ci": [
+        0.03837598764975975,
+        0.10802003749917945
+      ],
+      "detect_timeonly_10x": 0.065,
+      "detect_timeonly_ci": [
+        0.03837598764975975,
+        0.10802003749917945
+      ]
+    },
+    "GradCAMpp_L4": {
+      "lead_frac_mean": 0.0133932800963521,
+      "lead_frac_ci": [
+        0.01320367306470871,
+        0.013587561435997486
+      ],
+      "lead_frac_x_chance": 4.017983913421631,
+      "time_frac_mean": 0.1607193499803543,
+      "time_frac_ci": [
+        0.15844407677650452,
+        0.16305075585842133
+      ],
+      "time_frac_x_chance": 4.017983913421631,
+      "detect_heldout_tau": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_fixed10x": 0.0,
+      "detect_fixed10x_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_timeonly_10x": 0.0,
+      "detect_timeonly_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    },
+    "Random": {
+      "lead_frac_mean": 0.0033309387508779764,
+      "lead_frac_ci": [
+        0.0032809979747980833,
+        0.0033827191218733788
+      ],
+      "lead_frac_x_chance": 0.9992815852165222,
+      "time_frac_mean": 0.040023814886808395,
+      "time_frac_ci": [
+        0.039859794080257416,
+        0.04018625617027283
+      ],
+      "time_frac_x_chance": 1.0005954504013062,
+      "detect_heldout_tau": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_fixed10x": 0.0,
+      "detect_fixed10x_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_timeonly_10x": 0.0,
+      "detect_timeonly_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    },
+    "SmoothRandom": {
+      "lead_frac_mean": 0.003358333371579647,
+      "lead_frac_ci": [
+        0.0031081116758286953,
+        0.0036319929640740156
+      ],
+      "lead_frac_x_chance": 1.0074999332427979,
+      "time_frac_mean": 0.04007593169808388,
+      "time_frac_ci": [
+        0.03925715386867523,
+        0.04100293293595314
+      ],
+      "time_frac_x_chance": 1.0018982887268066,
+      "detect_heldout_tau": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_fixed10x": 0.0,
+      "detect_fixed10x_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_timeonly_10x": 0.0,
+      "detect_timeonly_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    },
+    "AbsX": {
+      "lead_frac_mean": 0.05261687934398651,
+      "lead_frac_ci": [
+        0.05020022392272949,
+        0.055085550993680954
+      ],
+      "lead_frac_x_chance": 15.785063743591309,
+      "time_frac_mean": 0.08431373536586761,
+      "time_frac_ci": [
+        0.08138978481292725,
+        0.08732562512159348
+      ],
+      "time_frac_x_chance": 2.1078433990478516,
+      "detect_heldout_tau": 0.0,
+      "detect_heldout_ci": [
+        0.0,
+        0.018846005918320894
+      ],
+      "detect_fixed10x": 0.865,
+      "detect_fixed10x_ci": [
+        0.8107074954488286,
+        0.9055349202307972
+      ],
+      "detect_timeonly_10x": 0.0,
+      "detect_timeonly_ci": [
+        0.0,
+        0.018846005918320894
+      ]
+    }
+  }
+}

@@ -1,58 +1,58 @@
-# ecg-xai-eval
+# ecg-explainability-benchmark
 
-Evaluation code for assessing attribution methods on a 12-lead ECG classifier
-trained on a public dataset. The pipeline scores several gradient- and
-perturbation-based attribution methods on three independent criteria and a
-controlled sanity test, then aggregates across multiple random seeds.
+Code, trained Transformer weights, per-run results and figure scripts for an audit protocol
+that evaluates attribution methods for 12-lead ECG classifiers trained on PTB-XL (100 Hz).
 
-> **Note.** This repository accompanies a research project that is **not yet
-> published**. It is provided for reproducibility of the computational pipeline
-> only. It deliberately contains **no manuscript text, abstract, figures, or
-> results narrative**. Please do not index or cite this repository as a
-> publication; a formal reference will be added after the associated article
-> appears.
+Six attribution methods (Saliency, Grad×Input, DeepLIFT, Integrated Gradients, GradientSHAP,
+Grad-CAM) are scored on two architectures (ResNet1D, ten seeds; Transformer encoder, three seeds):
 
-## Scope
-
-The code lets a user:
-
-- rebuild the input tensors from the raw signal release and train the classifier
-  across a fixed set of random seeds (deterministic, resumable);
-- score attribution maps on three criteria — a removal-based criterion, a
-  region-overlap criterion, and a model-randomization criterion;
-- run a controlled artefact-insertion sanity test that checks whether a method
-  localizes a planted signal;
-- fit a per-record mixed-effects model and regenerate all plots.
+- **Axis A, faithfulness:** leakage-controlled ROAD with a neighbourhood imputer (k = 8, guard band 15),
+  reported as ABPC minus a random map, with amplitude (|x|), smooth-random and QRS-mask control maps;
+- **Axis B, clinical validity:** share of positive attribution inside delineated diagnostic regions;
+- **Axis C, randomization sensitivity:** signed Spearman similarity after weight re-initialization
+  (reported as a diagnostic);
+- **Shortcut injection:** eight artefact settings with a reliance check and a threshold calibrated on
+  held-out records.
 
 ## Repository layout
 
 ```
-src/        pipeline stages (train, evaluate, plot)
-docs/        environment and data-access notes; analysis plan
-models/      instructions for obtaining or regenerating the trained weights
-results/     machine-readable run outputs
-figures/     generated plots
+src/                       pipeline scripts (run in numerical order)
+  01_rebuild_and_train.py           data tensors from raw PTB-XL + ResNet1D training (10 seeds)
+  02_confirmatory_axes_injection_glmm.py   first confirmatory pipeline
+  03_make_figures.py                first-round figures
+  04_axes_resnet_10seeds.py         Axes A, B, C for ResNet1D (10 seeds)
+  05_injection_gradcam_controls.py  shortcut injection, Grad-CAM variants, control maps, ROAD curves, runtime
+  06_transformer.py                 Transformer training + Axes A-C + shortcut injection
+  07_statistics.py                  seed-level CIs, bootstrap, mixed model, Holm, TOST, Axis C summaries
+  08_collect_results.py             builds results/master_results.json from results/raw/
+  09_make_figures.py                Figures 1-8 (600 dpi) from results/
+docs/                      data access, reproduction steps, analysis plan
+models/                    weight instructions; Transformer weights (transformer_weights.zip)
+results/master_results.json  every number reported in the manuscript
+results/statistics.json      output of 07_statistics.py
+results/raw/                 per-seed and per-setting outputs of scripts 04-06
+figures/                     Figures 1-8
 ```
 
-## Usage
+In code and JSON files, the key `DeepSHAP` denotes GradientSHAP (Captum `GradientShap`) and
+`GradXInput` denotes Grad×Input.
+
+## Quick start
 
 ```bash
 pip install -r requirements.txt
-python src/01_rebuild_and_train.py                 # data + training (see docs for the data source)
-python src/02_confirmatory_axes_injection_glmm.py  # all evaluation criteria + sanity test
-python src/03_make_figures.py                      # plots
+# reproduce the reported numbers and figures from the stored run outputs (CPU, about a minute):
+python src/08_collect_results.py
+python src/09_make_figures.py
 ```
 
-Paths default to a hosted-notebook layout; edit the working and dataset paths at
-the top of each script to run locally. Training is seed-deterministic, so a fresh
-run reproduces the same weights and scores within tolerance.
+To recompute everything from raw PTB-XL on a GPU, follow `docs/REPRODUCE.md`.
 
 ## Data
 
-The signal dataset is **not redistributed here** and must be obtained from its
-official source under its own license (see `docs/DATA.md`).
+PTB-XL is **not redistributed here**; obtain it from PhysioNet under its license (see `docs/DATA.md`).
 
 ## License
 
-Code is released under the MIT License (see `LICENSE`). The dataset retains its
-original license.
+Code is released under the MIT License (see `LICENSE`). PTB-XL retains its original license.

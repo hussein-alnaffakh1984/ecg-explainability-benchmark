@@ -1,0 +1,14 @@
+{
+  "ms_per_ecg": {
+    "Saliency": 6.0394033789634705,
+    "GradXInput": 6.8704113364219666,
+    "DeepLIFT": 12.63829693198204,
+    "IG": 40.5614860355854,
+    "DeepSHAP": 7.324691861867905,
+    "GradCAM_L4": 4.839938133955002,
+    "GradCAMpp_L4": 7.2183385491371155
+  },
+  "device": "Tesla T4",
+  "IG_steps": 32,
+  "DeepSHAP_baselines": "2 (zero, zero+N(0,0.1))"
+}

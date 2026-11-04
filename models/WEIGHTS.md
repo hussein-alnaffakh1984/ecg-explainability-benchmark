@@ -1,19 +1,16 @@
 # Trained weights
 
-The ten ResNet1D baselines (~8.74M parameters each, seeds [42,1,7,2,3,4,5,6,8,9])
-are **not committed to this repository** because of size and to keep the repo light.
+## Transformer encoder (3 seeds)
+`transformer_weights.zip` in this folder contains `transformer_seed{42,1,7}.pt`
+(0.665M parameters each; test macro-AUROC 0.9112, 0.9127, 0.9121).
 
-Two supported options:
+## ResNet1D (10 seeds)
+The ten ResNet1D models (8.74M parameters each, seeds [42, 1, 7, 2, 3, 4, 5, 6, 8, 9]) are too large
+for the git tree. Two options:
 
-1. **Regenerate (recommended, deterministic).**
-   `python src/01_rebuild_and_train.py` reproduces all ten weights from the raw
-   PTB-XL release. Training is seed-deterministic; the resulting test macro-AUROC is
-   0.9262 ± 0.0009 (range [0.9249, 0.9276]).
+1. **Download** `resnet1d_seed*.pt` from the Kaggle dataset
+   https://www.kaggle.com/datasets/hussein1984/ecg-models (folder `models/`).
+2. **Regenerate** with `python src/01_rebuild_and_train.py`; training is seed-deterministic and
+   reproduces a mean test macro-AUROC of 0.9262.
 
-2. **Download.**
-   Host the weights outside the git tree and link them here:
-   - GitHub Releases (attach `resnet1d_seed*.pt`), or
-   - Git LFS (`.gitattributes` already tracks `*.pt`), or
-   - a public/private dataset (e.g., Kaggle/Zenodo) — add the DOI/URL here.
-
-Place the downloaded files in `models/` as `resnet1d_seed{42,1,7,2,3,4,5,6,8,9}.pt`.
+Place the files in `models/` as `resnet1d_seed{42,1,7,2,3,4,5,6,8,9}.pt`.
